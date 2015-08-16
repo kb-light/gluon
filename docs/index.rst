@@ -43,6 +43,8 @@ Developer Documentation
    dev/wan
    dev/i18n
 
+   package/gluon-radio-config
+
 Releases
 --------
 
