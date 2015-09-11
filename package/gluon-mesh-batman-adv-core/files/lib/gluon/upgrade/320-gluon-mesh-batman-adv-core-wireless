@@ -5,14 +5,6 @@ local util = require 'gluon.util'
 
 local uci = require('luci.model.uci').cursor()
 
-local function get_value(config, name, option)
-  local value = config and config[option]
-  if uci:get('wireless', name) then
-    value = uci:get('wireless', name, option)
-  end
-
-  return value
-end
 
 local function is_disabled(config, name)
   local disabled = config and config.disabled
@@ -95,8 +87,8 @@ end
 local function configure_mesh(config, radio, index, suffix)
   local name = 'mesh_' .. radio
   local disabled = is_disabled(config, name)
-  local macfilter = get_value(config, name, 'macfilter')
-  local maclist = get_value(config, name, 'maclist')
+  local macfilter = uci:get('wireless', name, 'macfilter')
+  local maclist = uci:get('wireless', name, 'macfilter')
 
   uci:delete('network', name)
   uci:delete('wireless', name)
