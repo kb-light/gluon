@@ -51,6 +51,7 @@ io.write("Content-type: text/html\n\n")
 io.write("<!DOCTYPE html>\n")
 io.write("<html>")
 io.write("<head>")
+io.write("<meta charset=\"utf-8\"/>")
 io.write("<script src=\"/status.js\"></script>")
 io.write("<title>" .. escape_html(hostname) .. "</title>")
 io.write("</head>")
@@ -94,7 +95,7 @@ local stat, fastd_status = pcall(
     assert(fastd_sock:connect('/var/run/fastd.mesh_vpn.socket'))
 
     decoder = json.new()
-    ltn12.pump.all(ltn12.source.file(fastd_sock), function(chunk) decoder:parse(chunk) end)
+    ltn12.pump.all(ltn12.source.file(fastd_sock), decoder:sink())
     return decoder:get()
   end
 )
