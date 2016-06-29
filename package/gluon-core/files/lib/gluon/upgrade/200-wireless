@@ -28,12 +28,12 @@ local function configure_radio(radio, index, config)
     uci:set('wireless', radio, 'htmode', 'HT20')
     uci:set('wireless', radio, 'country', site.regdom)
 
-    if site.supported_rates then
-        uci:set('wireless', radio, 'supported_rates', site.supported_rates)
+    if supported_rates then
+        uci:set('wireless', radio, 'supported_rates', supported_rates)
     end
 
-    if site.basic_rate then
-        uci:set('wireless', radio, 'basic_rate', site.basic_rate)
+    if basic_rate then
+        uci:set('wireless', radio, 'basic_rate', basic_rate)
     end
   end
 end

@@ -106,12 +106,19 @@ wifi24 \: optional
     ``ibss`` requires two parametersr: ``ssid`` (a string) and ``bssid`` (a MAC).
     An optional parameter ``vlan`` (integer) is supported.
 
+    Additional it is possible to configure the ``supported_rates`` and ``basic_rate``,
+    used by the WLAN. This can for example be used, to disable 802.11b rates. Where
+    ``basic_rate`` has to be a subset of ``supported_rates``. Booth are optional and If
+    not set, hostapd/driver default is used.
+
     Both ``mesh`` and ``ibss`` accept an optional ``mcast_rate`` (kbit/s) parameter for
     setting the default multicast datarate.
     ::
 
        wifi24 = {
          channel = 11,
+         supported_rates = '6000 9000 12000 18000 24000 36000 48000 54000',
+         basic_rate = '6000 9000 18000 36000 54000',
          ap = {
            ssid = 'entenhausen.freifunk.net',
          },
