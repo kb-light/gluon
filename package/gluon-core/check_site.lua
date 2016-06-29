@@ -28,5 +28,8 @@ for _, config in ipairs({'wifi24', 'wifi5'}) do
     need_string('regdom') -- regdom is only required when wifi24 or wifi5 is configured
 
     need_number(config .. '.channel')
+
+    need_string(config .. '.supported_rates', false)
+    need_string(config .. '.basic_rate', false)
   end
 end

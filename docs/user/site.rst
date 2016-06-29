@@ -98,6 +98,11 @@ wifi24 \: optional
     This will only affect new installations.
     Upgrades will not changed the disabled state.
 
+    Additionally it is possible to configure the ``supported_rates`` and ``basic_rate``
+    of the radio device. ``basic_rate`` has to be a subset of ``supported_rates``.
+    Both are optional and hostapd/driver default is used.
+    The example below disables 802.11b rates.
+
     ``ap`` requires a single parameter, a string, named ``ssid`` which sets the
     interface's ESSID.
 
@@ -112,6 +117,8 @@ wifi24 \: optional
 
        wifi24 = {
          channel = 11,
+         supported_rates = '6000 9000 12000 18000 24000 36000 48000 54000',
+         basic_rate = '6000 9000 18000 36000 54000',
          ap = {
            ssid = 'entenhausen.freifunk.net',
          },
