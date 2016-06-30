@@ -118,8 +118,8 @@ wifi24 \: optional
 
        wifi24 = {
          channel = 11,
-         supported_rates = '6000 9000 12000 18000 24000 36000 48000 54000',
-         basic_rate = '6000 9000 18000 36000 54000',
+         supported_rates = {6000, 9000, 12000, 18000, 24000, 36000, 48000, 54000},
+         basic_rate = {6000, 9000, 18000, 36000, 54000},
          ap = {
            ssid = 'entenhausen.freifunk.net',
          },

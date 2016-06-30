@@ -28,10 +28,26 @@ for _, config in ipairs({'wifi24', 'wifi5'}) do
     need_string('regdom') -- regdom is only required when wifi24 or wifi5 is configured
 
     need_number(config .. '.channel')
-    if need_string(config .. '.supported_rates', false) then
-      need_string(config .. '.basic_rate')
+
+    function var_in_array(var, array)
+      for _,v in ipairs(array) do
+        if v == var then
+          return true
+        end
+      end
+      return false
+    end
+
+    function check_rate(var)
+      rates={1000, 2000, 5500, 6000, 9000, 11000, 12000, 18000, 24000, 36000, 48000, 54000}
+      assert(var_in_array(var, rates),"site.conf error: `" .. var .. "' is not a valid wifi rate.")
+      return var
+    end
+
+    if need_array(config .. '.supported_rates', check_rate, false) then
+      need_array(config .. '.basic_rate',check_rate, true)
     else
-      need_string(config .. '.basic_rate', false)
+      need_array(config .. '.basic_rate', check_rate, false)
     end
   end
 end
