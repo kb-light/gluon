@@ -29,25 +29,12 @@ for _, config in ipairs({'wifi24', 'wifi5'}) do
 
     need_number(config .. '.channel')
 
-    function var_in_array(var, array)
-      for _,v in ipairs(array) do
-        if v == var then
-          return true
-        end
-      end
-      return false
-    end
-
-    function check_rate(var)
-      rates={1000, 2000, 5500, 6000, 9000, 11000, 12000, 18000, 24000, 36000, 48000, 54000}
-      assert(var_in_array(var, rates),"site.conf error: `" .. var .. "' is not a valid wifi rate.")
-      return var
-    end
-
-    if need_array(config .. '.supported_rates', check_rate, false) then
-      need_array(config .. '.basic_rate',check_rate, true)
+    local rates={1000, 2000, 5500, 6000, 9000, 11000, 12000, 18000, 24000, 36000, 48000, 54000}
+    local supported_rates =  need_var_in_array(config .. '.supported_rates', rates, false)
+    if supported_rates then
+      need_var_in_array(config .. '.basic_rate', supported_rates, true)
     else
-      need_array(config .. '.basic_rate', check_rate, false)
+      need_var_in_array(config .. '.basic_rate', rates, false)
     end
   end
 end
