@@ -103,3 +103,26 @@ function need_string_array(varname, required)
    return assert(pcall(need_array, varname, function(e) assert_type(e, 'string') end, required),
 		 "site.conf error: expected `" .. varname .. "' to be a string array")
 end
+
+function need_var_in_array(varname, array, required)
+   local var = loadvar(varname)
+
+   if required == false and var == nil then
+      return nil
+   end
+
+   function var_in_array(var, array)
+      for _, v in ipairs(array) do
+         if v == var then
+            return true
+         end
+      end
+      return false
+   end
+
+   for _,v in pairs(var) do
+      assert(var_in_array(v, array), "site.conf error: `" .. v .. "' is not a valid value for " .. varname)
+   end
+
+   return var
+end
