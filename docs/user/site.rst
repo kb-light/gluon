@@ -98,6 +98,12 @@ wifi24 \: optional
     This will only affect new installations.
     Upgrades will not changed the disabled state.
 
+    Additionally it is possible to configure the ``supported_rates`` and ``basic_rate``
+    of each radio. Booth are optional and defaults to hostapd/driver default. But
+    ``supported_rates`` implies ``basic_rate``, because ``basic_rate`` has to be a subset
+    of ``supported_rates``.
+    The example below disables 802.11b rates.
+
     ``ap`` requires a single parameter, a string, named ``ssid`` which sets the
     interface's ESSID.
 
@@ -105,11 +111,6 @@ wifi24 \: optional
 
     ``ibss`` requires two parametersr: ``ssid`` (a string) and ``bssid`` (a MAC).
     An optional parameter ``vlan`` (integer) is supported.
-
-    Additional it is possible to configure the ``supported_rates`` and ``basic_rate``,
-    used by the WLAN. This can for example be used, to disable 802.11b rates. Where
-    ``basic_rate`` has to be a subset of ``supported_rates``. Booth are optional and If
-    not set, hostapd/driver default is used.
 
     Both ``mesh`` and ``ibss`` accept an optional ``mcast_rate`` (kbit/s) parameter for
     setting the default multicast datarate.
